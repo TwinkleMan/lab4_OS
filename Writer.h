@@ -1,4 +1,0 @@
-#ifndef LAB4_OS_WRITER_H
-#define LAB4_OS_WRITER_H
-
-#endif //LAB4_OS_WRITER_H

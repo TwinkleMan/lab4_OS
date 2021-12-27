@@ -6,11 +6,13 @@
 
 using namespace std;
 
-int main() {
-
+int main()
+{
     HANDLE freeSemaphore = OpenSemaphore(SYNCHRONIZE | SEMAPHORE_MODIFY_STATE, false, "freeSemaphore");
     HANDLE usedSemaphore = OpenSemaphore(SYNCHRONIZE | SEMAPHORE_MODIFY_STATE, false, "usedSemaphore");
     HANDLE mutex = OpenMutex(SYNCHRONIZE | MUTEX_MODIFY_STATE, false, "mutex");
+
+    srand(time(nullptr));
 
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -24,8 +26,8 @@ int main() {
     {
         for (int i = 0; i < 3; ++i)
         {
-            WaitForSingleObject(freeSemaphore, INFINITE);
-            outputString = "Take | Free semaphore | " + to_string(GetTickCount()) + '\n';
+            WaitForSingleObject(usedSemaphore, INFINITE);
+            outputString = "Take | Used semaphore | " + to_string(GetTickCount()) + '\n';
             WriteFile(hStdout, outputString.data(), outputString.length(), &written, NULL);
 
             WaitForSingleObject(mutex, INFINITE);
@@ -41,21 +43,21 @@ int main() {
             }
             else
             {
-                string str = to_string(GetLastError()) + " CODE mutex\n";
-                WriteFile(hStdout, str.data(), str.length(), &written, NULL);
+                string errorString = to_string(GetLastError()) + " CODE mutex\n";
+                WriteFile(hStdout, errorString.data(), errorString.length(), &written, NULL);
             }
 
-            if (ReleaseSemaphore(usedSemaphore, 1, &page))
+            if (ReleaseSemaphore(freeSemaphore, 1, &page))
             {
-                outputString = "Free | Used semaphore | " + to_string(GetTickCount()) + '\n';
+                outputString = "Free | Free semaphore | " + to_string(GetTickCount()) + '\n';
                 WriteFile(hStdout, outputString.data(), outputString.length(), &written, NULL);
                 string str = "PAGE | NUMBER = " + to_string(page + 1) + " | " + to_string(GetTickCount()) + "\n\n";
                 WriteFile(hStdout, str.data(), str.length(), &written, NULL);
             }
             else
             {
-                string str = to_string(GetLastError()) + " CODE semaphore\n";
-                WriteFile(hStdout, str.data(), str.length(), &written, NULL);
+                string errorString = to_string(GetLastError()) + " CODE semaphore\n";
+                WriteFile(hStdout, errorString.data(), errorString.length(), &written, NULL);
             }
         }
     }
@@ -65,4 +67,6 @@ int main() {
     }
 
     CloseHandle(hStdout);
+
+    return 0;
 }
