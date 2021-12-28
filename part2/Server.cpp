@@ -56,8 +56,10 @@ int main()
                     if (isConnected == FALSE) cout << "Нет соединения!" << endl;
                     else {
 
+                        char tempBuf;
                         cout << "Введите сообщение: ";
-                        cin >> buffer;
+                        cin.get(tempBuf);
+                        cin.getline(buffer,512);
 
                         overlapped.hEvent = Event;
                         isConnected = WriteFile(Pipe, (LPCVOID)buffer, 512, NULL, &overlapped);
