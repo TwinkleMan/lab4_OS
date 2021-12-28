@@ -2,6 +2,8 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/main.cpp" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/part2/Client.cpp" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/part2/Server.cpp" charset="windows-1251" />
     <file url="PROJECT" charset="windows-1252" />
   </component>
 </project>

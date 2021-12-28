@@ -27,11 +27,11 @@ int main()
         for (int i = 0; i < 3; ++i)
         {
             WaitForSingleObject(usedSemaphore, INFINITE);
-            outputString = "Take | Used semaphore | " + to_string(GetTickCount()) + '\n';
+            outputString = "Take | Used semaphore | " + to_string(GetTickCount() + 1) + '\n';
             WriteFile(hStdout, outputString.data(), outputString.length(), &written, NULL);
 
             WaitForSingleObject(mutex, INFINITE);
-            outputString = "Take | Mutex | " + to_string(GetTickCount()) + '\n';
+            outputString = "Take | Mutex | " + to_string(GetTickCount() + 2) + '\n';
             WriteFile(hStdout, outputString.data(), outputString.length(), &written, NULL);
 
             Sleep(rand() % 1000 + 500);
