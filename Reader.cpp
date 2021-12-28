@@ -35,6 +35,8 @@ int main()
             WriteFile(hStdout, outputString.data(), outputString.length(), &written, NULL);
 
             Sleep(rand() % 1000 + 500);
+            outputString = "Read | Page | " + to_string(page + 1) + " | " + to_string(GetTickCount()) + "\n";
+            WriteFile(hStdout, outputString.data(), outputString.length(), &written, NULL);
 
             if (ReleaseMutex(mutex))
             {
@@ -51,14 +53,17 @@ int main()
             {
                 outputString = "Free | Free semaphore | " + to_string(GetTickCount()) + '\n';
                 WriteFile(hStdout, outputString.data(), outputString.length(), &written, NULL);
-                string str = "PAGE | NUMBER = " + to_string(page + 1) + " | " + to_string(GetTickCount()) + "\n\n";
-                WriteFile(hStdout, str.data(), str.length(), &written, NULL);
+//                string str = "PAGE | NUMBER = " + to_string(page + 1) + " | " + to_string(GetTickCount()) + "\n\n";
+//                WriteFile(hStdout, str.data(), str.length(), &written, NULL);
             }
             else
             {
                 string errorString = to_string(GetLastError()) + " CODE semaphore\n";
                 WriteFile(hStdout, errorString.data(), errorString.length(), &written, NULL);
             }
+
+            outputString = "\n";
+            WriteFile(hStdout, outputString.data(), outputString.length(), &written, NULL);
         }
     }
     else
