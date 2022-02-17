@@ -39,7 +39,7 @@ int main()
                 case 1:
 
                     overlapped.hEvent = Event;
-                    isConnected = ReadFileEx(Pipe, (LPVOID)buffer, 512, &overlapped, Callback);
+                    isConnected = ReadFileEx(Pipe, buffer, 512, &overlapped, Callback);
 
                     if (isConnected)
                     {
