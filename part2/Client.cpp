@@ -4,7 +4,7 @@
 using namespace std;
 
 void WINAPI Callback(DWORD dwErrorCode, DWORD dwNumberOfBytesTransfered, LPOVERLAPPED lpOverlapped) {
-    cout << "Èíôîðìàöèÿ ïîëó÷åíà" << endl;
+    cout << "ÃˆÃ­Ã´Ã®Ã°Ã¬Ã Ã¶Ã¨Ã¿ Ã¯Ã®Ã«Ã³Ã·Ã¥Ã­Ã " << endl;
 }
 
 int main()
@@ -28,9 +28,9 @@ int main()
         do
         {
             system("cls");
-            cout << "1) Ïðèíÿòü ñîîáùåíèå" << endl;
-            cout << "2) Îòñîåäèíèòüñÿ îò èìåíîâàííîãî êàíàëà" << endl;
-            cout << "0) Âûéòè" << endl;
+            cout << "1) ÃÃ°Ã¨Ã­Ã¿Ã²Ã¼ Ã±Ã®Ã®Ã¡Ã¹Ã¥Ã­Ã¨Ã¥" << endl;
+            cout << "2) ÃŽÃ²Ã±Ã®Ã¥Ã¤Ã¨Ã­Ã¨Ã²Ã¼Ã±Ã¿ Ã®Ã² Ã¨Ã¬Ã¥Ã­Ã®Ã¢Ã Ã­Ã­Ã®Ã£Ã® ÃªÃ Ã­Ã Ã«Ã " << endl;
+            cout << "0) Ã‚Ã»Ã©Ã²Ã¨" << endl;
 
             cin >> flag;
 
@@ -40,6 +40,7 @@ int main()
 
                     overlapped.hEvent = Event;
                     isConnected = ReadFileEx(Pipe, buffer, 512, &overlapped, Callback);
+                    SleepEx(INFINITE, true);
 
                     if (isConnected)
                     {
@@ -48,19 +49,19 @@ int main()
                     }
                     else
                     {
-                        cout << "×òåíèå íå óäàëîñü!" << endl;
+                        cout << "Ã—Ã²Ã¥Ã­Ã¨Ã¥ Ã­Ã¥ Ã³Ã¤Ã Ã«Ã®Ã±Ã¼!" << endl;
                         system("pause");
                     }
                     break;
 
                 case 2:
 
-                    isConnected = CloseHandle(Pipe);	//Çàêðûòèå èìåíîâàííîãî êàíàëà
+                    isConnected = CloseHandle(Pipe);	//Ã‡Ã ÃªÃ°Ã»Ã²Ã¨Ã¥ Ã¨Ã¬Ã¥Ã­Ã®Ã¢Ã Ã­Ã­Ã®Ã£Ã® ÃªÃ Ã­Ã Ã«Ã 
 
                     if (isConnected)
-                        cout << "Âû áûëè îòñîåäèíåíû îò èìåíîâàííîãî êàíàëà!" << endl;
+                        cout << "Ã‚Ã» Ã¡Ã»Ã«Ã¨ Ã®Ã²Ã±Ã®Ã¥Ã¤Ã¨Ã­Ã¥Ã­Ã» Ã®Ã² Ã¨Ã¬Ã¥Ã­Ã®Ã¢Ã Ã­Ã­Ã®Ã£Ã® ÃªÃ Ã­Ã Ã«Ã !" << endl;
                     else
-                        cout << "Íå óäàëîñü îòñîåäèíèòüñÿ!" << endl;
+                        cout << "ÃÃ¥ Ã³Ã¤Ã Ã«Ã®Ã±Ã¼ Ã®Ã²Ã±Ã®Ã¥Ã¤Ã¨Ã­Ã¨Ã²Ã¼Ã±Ã¿!" << endl;
 
                     isConnected = FALSE;
 
@@ -80,7 +81,7 @@ int main()
         } while (flag);
     }
     else
-        cout << "Íå óäàëîñü ñîçäàòü èìåíîâàííûé êàíàë, ïåðåçàïóñòèòå ïðîãðàììó!" << endl;
+        cout << "ÃÃ¥ Ã³Ã¤Ã Ã«Ã®Ã±Ã¼ Ã±Ã®Ã§Ã¤Ã Ã²Ã¼ Ã¨Ã¬Ã¥Ã­Ã®Ã¢Ã Ã­Ã­Ã»Ã© ÃªÃ Ã­Ã Ã«, Ã¯Ã¥Ã°Ã¥Ã§Ã Ã¯Ã³Ã±Ã²Ã¨Ã²Ã¥ Ã¯Ã°Ã®Ã£Ã°Ã Ã¬Ã¬Ã³!" << endl;
 
     return 0;
 }
